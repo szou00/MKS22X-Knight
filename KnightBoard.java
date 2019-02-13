@@ -1,8 +1,9 @@
 public class KnightBoard {
-  int[][] board;
+  private int[][] board;
 
   /**
   *@throws IllegalArgumentException when either parameter is negative.
+  *Initialize the board to the correct size and make them all 0's
   */
   public KnightBoard(int startingRows,int startingCols) {
     if (startingRows < 0 || startingCols < 0) {
@@ -12,11 +13,15 @@ public class KnightBoard {
     //creates board with the correct size
   }
 
-  //Initialize the board to the correct size and make them all 0's
-
 
   public String toString() {
-    return "";
+    String ans = "";
+    for (int r = 0; r < board.length; r++) {
+      for (int c=0; c<board[r].length; c++) {
+        ans+=board[r][c];
+      }
+    }
+    return ans;
   }
 
   /**
