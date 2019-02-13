@@ -6,7 +6,7 @@ public class KnightBoard {
   *Initialize the board to the correct size and make them all 0's
   */
   public KnightBoard(int startingRows,int startingCols) {
-    if (startingRows < 0 || startingCols < 0) {
+    if (startingRows <= 0 || startingCols <= 0) {
       throw new IllegalArgumentException();
     }
     board = new int[startingRows][startingCols];
@@ -18,8 +18,19 @@ public class KnightBoard {
     String ans = "";
     for (int r = 0; r < board.length; r++) {
       for (int c=0; c<board[r].length; c++) {
-        ans+=board[r][c];
+        if (board[r][c] == 0) {
+          ans+=" _";
+        }
+        else {
+          if (r*c>10 && board[r][c] < 10) {
+            ans+=" _" + board[r][c];
+          }
+          else {
+            ans+=board[r][c];
+          }
+        }
       }
+      ans+="\n";
     }
     return ans;
   }
