@@ -1,5 +1,7 @@
 public class KnightBoard {
   private int[][] board;
+  private int rows;
+  private int cols;
 
   /**
   *@throws IllegalArgumentException when either parameter is negative.
@@ -10,6 +12,8 @@ public class KnightBoard {
       throw new IllegalArgumentException();
     }
     board = new int[startingRows][startingCols];
+    rows = startingRows;
+    cols = startingCols;
     //creates board with the correct size
   }
 
@@ -23,7 +27,7 @@ public class KnightBoard {
         }
         else {
           if (r*c>10 && board[r][c] < 10) {
-            ans+=" _" + board[r][c];
+            ans+="  " + board[r][c];
           }
           else {
             ans+=board[r][c];
@@ -36,10 +40,17 @@ public class KnightBoard {
   }
 
   /**
+  *Modifies the board by labeling the moves from 1 (at startingRow,startingCol)
+  *up to the area of the board in proper knight move steps.
   *@throws IllegalStateException when the board contains non-zero values.
   *@throws IllegalArgumentException when either parameter is negative or out of bounds.
   */
   public boolean solve(int startingRow, int startingCol) {
+    if (startingRow < 0 || startingRow > rows || startingCol < 0 || startingCol > 0) {
+      throw new IllegalArgumentException();
+    }
+    board[startingRow][startingCol] = 1;
+    // return solveH()
     return false;
   }
 
