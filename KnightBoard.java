@@ -1,10 +1,15 @@
 public class KnightBoard {
+  int[][] board;
 
   /**
   *@throws IllegalArgumentException when either parameter is negative.
   */
   public KnightBoard(int startingRows,int startingCols) {
-
+    if (startingRows < 0 || startingCols < 0) {
+      throw new IllegalArgumentException();
+    }
+    board = new int[startingRows][startingCols];
+    //creates board with the correct size
   }
 
   //Initialize the board to the correct size and make them all 0's
