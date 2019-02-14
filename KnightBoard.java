@@ -63,13 +63,28 @@ public class KnightBoard {
     return 0;
   }
 
-  private boolean solveH(int row ,int col, int level) {
+  public boolean solveH(int row ,int col, int level) {
+    if (level > rows * cols) {
+      return true;
+    }
+    else {
+      if (addKnight(row,col,level)) {
+        solveH(row+2,col+1,level+1);
+        solveH(row+2,col-1,level+1);
+        solveH(row-2,col+1,level+1);
+        solveH(row-2,col-1,level+1);
+        solveH(row+1,col+2,level+1);
+        solveH(row-1,col+2,level+1);
+        solveH(row+1,col-2,level+1);
+        solveH(row-1,col-2,level+1);
+      }
+    }
     return false;
   }
   // level is the # of the knight
 
   public boolean addKnight(int row, int col, int level) {
-    if (row > rows || row < 0 || col > cols || col < 0) {
+    if (row >= rows || row < 0 || col >= cols || col < 0) {
       return false; //can't add the knight if the position is not valid
     }
     if (board[row][col] == 0) {
