@@ -68,4 +68,14 @@ public class KnightBoard {
   }
   // level is the # of the knight
 
-}
+  private boolean addKnight(int row, int col, int level) {
+    if (row > rows || row < 0 || col > cols || col < 0) {
+      return false; //can't add the knight if the position is not valid
+    }
+    if (board[row][col] == 0) {
+      board[row][col] = level; //if the position is available, the knight will be added
+    }
+    else {
+      return false; //if not, it will not be added
+    }
+  }
