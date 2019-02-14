@@ -74,8 +74,11 @@ public class KnightBoard {
     }
     if (board[row][col] == 0) {
       board[row][col] = level; //if the position is available, the knight will be added
+      return true;
     }
     else {
       return false; //if not, it will not be added
     }
   }
+
+}
