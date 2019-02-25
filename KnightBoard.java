@@ -69,16 +69,20 @@ public class KnightBoard {
     }
     else {
       if (addKnight(row,col,level)) {
-        solveH(row+2,col+1,level+1);
-        solveH(row+2,col-1,level+1);
-        solveH(row-2,col+1,level+1);
-        solveH(row-2,col-1,level+1);
-        solveH(row+1,col+2,level+1);
-        solveH(row-1,col+2,level+1);
-        solveH(row+1,col-2,level+1);
-        solveH(row-1,col-2,level+1);
-      }
+        if (
+        solveH(row+2,col+1,level+1) ||
+        solveH(row+2,col-1,level+1) ||
+        solveH(row-2,col+1,level+1) ||
+        solveH(row-2,col-1,level+1) ||
+        solveH(row+1,col+2,level+1) ||
+        solveH(row-1,col+2,level+1) ||
+        solveH(row+1,col-2,level+1) ||
+        solveH(row-1,col-2,level+1) ) {
+          return true;
+        }
+      removeKnight(row,col,level);
     }
+  }
     return false;
   }
   // level is the # of the knight
@@ -93,6 +97,19 @@ public class KnightBoard {
     }
     else {
       return false; //if not, it will not be added
+    }
+  }
+
+  public boolean removeKnight(int row, int col, int level) {
+    if (rows >= rows || row < 0 || col >= cols || col < 0) {
+      return false; //can't remove if the position isn't valid
+    }
+    if (board[row][col] != 0) {
+      board[row][col] = 0;
+      return true;
+    }
+    else {
+      return false;
     }
   }
 
