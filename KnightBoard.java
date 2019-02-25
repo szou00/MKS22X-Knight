@@ -69,18 +69,31 @@ public class KnightBoard {
     }
     else {
       if (addKnight(row,col,level)) {
-        if (
-        solveH(row+2,col+1,level+1) ||
-        solveH(row+2,col-1,level+1) ||
-        solveH(row-2,col+1,level+1) ||
-        solveH(row-2,col-1,level+1) ||
-        solveH(row+1,col+2,level+1) ||
-        solveH(row-1,col+2,level+1) ||
-        solveH(row+1,col-2,level+1) ||
-        solveH(row-1,col-2,level+1) ) {
+        if (solveH(row+2,col+1,level+1)) {
           return true;
         }
-      removeKnight(row,col,level);
+        if (solveH(row+2,col-1,level+1)) {
+          return true;
+        }
+        if (solveH(row-2,col+1,level+1)) {
+          return true;
+        }
+        if (solveH(row-2,col-1,level+1)) {
+          return true;
+        }
+        if (solveH(row+1,col+2,level+1)) {
+          return true;
+        }
+        if (solveH(row-1,col+2,level+1)) {
+          return true;
+        }
+        if (solveH(row+1,col-2,level+1)) {
+          return true;
+        }
+        if (solveH(row-1,col-2,level+1)) {
+          return true;
+        }
+      System.out.println(removeKnight(row,col,level));
     }
   }
     return false;
@@ -102,6 +115,7 @@ public class KnightBoard {
 
   public boolean removeKnight(int row, int col, int level) {
     if (rows >= rows || row < 0 || col >= cols || col < 0) {
+      System.out.println("wasn't zero");
       return false; //can't remove if the position isn't valid
     }
     if (board[row][col] != 0) {
@@ -109,6 +123,7 @@ public class KnightBoard {
       return true;
     }
     else {
+      System.out.println("wasn't zero");
       return false;
     }
   }
