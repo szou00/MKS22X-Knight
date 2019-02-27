@@ -14,12 +14,11 @@ public class KnightBoard {
     if (startingRows <= 0 || startingCols <= 0) {
       throw new IllegalArgumentException();
     }
-    board = new int[startingRows][startingCols];
-    allMoves = new int[startingRows][startingCols];
+    board = new int[startingRows][startingCols]; //Initializes the board
+    allMoves = new int[startingRows][startingCols]; //Initializes the array of moves
     rows = startingRows;
     cols = startingCols;
-    addAllMoves(); //Initializes the array of moves
-    //creates board with the correct size
+    addAllMoves(); //fills in the array of moves
   }
 
 
@@ -28,14 +27,14 @@ public class KnightBoard {
     for (int r = 0; r < board.length; r++) {
       for (int c=0; c<board[r].length; c++) {
         if (board[r][c] == 0) {
-          ans+=" _";
+          ans+=" _"; // if it's empty it'll be an underscore
         }
         else {
-          if (rows*cols>10 && board[r][c] < 10) {
-            ans+="  " + board[r][c];
+          if (rows*cols>10 && board[r][c] < 10) { //if there are numbers greater than ten
+            ans+="  " + board[r][c]; //numbers less than ten will have an extra space in front of them
           }
           else {
-            ans+=" " + board[r][c];
+            ans+=" " + board[r][c]; //otherwise it'll just print out normally
           }
         }
       }
@@ -51,15 +50,14 @@ public class KnightBoard {
   *@throws IllegalArgumentException when either parameter is negative or out of bounds.
   */
   public boolean solve(int startingRow, int startingCol) {
-    if (!isCleared()) {
+    if (!isCleared()) { //if board contains non-zero values
       throw new IllegalStateException();
     }
     if (startingRow < 0 || startingRow >= rows || startingCol < 0 || startingCol >= cols) {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException(); //if the parameters are not valid
     }
-    board[startingRow][startingCol] = 1;
-    // return solveH()
-    return false;
+    // board[startingRow][startingCol] = 1; //
+    return solveH(startingRow, startingCol, 1);
   }
 
   /**
