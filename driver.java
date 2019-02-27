@@ -36,6 +36,10 @@ public static void runTest(int i){
     // test.solveH(0,0,1);
     // System.out.println(test);
     System.out.println(test.printAllMoves());
+    System.out.println(test);
+    System.out.println(test.addKnight(0,0,1));
+    System.out.println(test);
+    System.out.println(test.printAllMoves());
     // for (int i =0; i<5; i++) {
     //   runTest(i);
     // }
