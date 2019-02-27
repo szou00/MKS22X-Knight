@@ -1,8 +1,26 @@
 public class KnightBoard {
+
+  private class Square {
+
+    private int row = 0;
+    private int col = 0;
+    private int level = 0;
+
+    public Square(int r,int c) {
+      row = r;
+      col = c;
+    }
+
+    public void setLevel(int l) {
+      level = l;
+    }
+
+  }
   private int[][] board;
   private int rows;
   private int cols;
   private int[][] moves = {{-2, -1}, {-2,1}, {-1,-2}, {1,-2}, {2,-1}, {2,1}, {-1,2}, {1,2}};;
+  private Square[][] squares;
 
   /**
   *@throws IllegalArgumentException when either parameter is negative.
@@ -16,6 +34,7 @@ public class KnightBoard {
     rows = startingRows;
     cols = startingCols;
     //creates board with the correct size
+    squares = new square[rows][cols];
   }
 
 
