@@ -18,6 +18,7 @@ public class KnightBoard {
     allMoves = new int[startingRows][startingCols];
     rows = startingRows;
     cols = startingCols;
+    addAllMoves(); //Initializes the array of moves
     //creates board with the correct size
   }
 
@@ -115,7 +116,7 @@ public class KnightBoard {
     }
     if (board[row][col] == 0) {
       board[row][col] = level; //if the position is available, the knight will be added
-      // allMoves[row][col]
+      decreaseMoves(row,col); //calls the function to modify the number of moves each square has
       return true;
     }
     return false; //if not, it will not be added
@@ -162,7 +163,6 @@ public class KnightBoard {
         }
       }
       if (r < rows/2) {
-        System.out.println(start);
         start+=1;
       }
       else {
@@ -171,8 +171,8 @@ public class KnightBoard {
     }
   }
 
+  //for testing purposes - to see if everything prints out right
   public String printAllMoves() {
-    addAllMoves();
     String ans = "";
     for (int r=0;r<rows;r++) {
       for (int c=0;c<cols;c++) {
@@ -181,6 +181,20 @@ public class KnightBoard {
       ans += "\n";
     }
     return ans;
+  }
+
+  //modifies the 2D array of allMoves accordingly
+  public void decreaseMoves(int row, int col) {
+    int checkR = 0;
+    int checkC = 0;
+    allMoves[row][col] = 0; //no more moves are possible if a knight is added here
+    for (int i = 0; i<moves.length;i++) {
+      checkR = row+moves[i][0];
+      checkC = row+moves[i][1];
+      if (!(checkR < 0 || checkR >= rows || checkC < 0 || checkC >= cols)) {
+        allMoves[checkR][checkC] -= 1;
+      }
+    }
   }
 
 }
