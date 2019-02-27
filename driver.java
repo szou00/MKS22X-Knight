@@ -22,6 +22,7 @@ public static void runTest(int i){
         System.out.println("FAIL board size: "+m[i%m.length]+"x"+n[i%m.length]+" "+ans+" vs "+correct);
       }
     }catch(Exception e){
+      System.out.println(e);
       System.out.println("FAIL Exception case: "+i);
 
     }

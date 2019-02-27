@@ -47,7 +47,10 @@ public class KnightBoard {
   *@throws IllegalArgumentException when either parameter is negative or out of bounds.
   */
   public boolean solve(int startingRow, int startingCol) {
-    if (startingRow < 0 || startingRow > rows || startingCol < 0 || startingCol > 0) {
+    if (!isCleared()) {
+      throw new IllegalStateException();
+    }
+    if (startingRow < 0 || startingRow >= rows || startingCol < 0 || startingCol >= cols) {
       throw new IllegalArgumentException();
     }
     board[startingRow][startingCol] = 1;
@@ -61,7 +64,10 @@ public class KnightBoard {
    or out of bounds.
   */
   public int countSolutions(int startingRow, int startingCol) {
-    if (startingRow < 0 || startingRow > rows || startingCol < 0 || startingCol > 0) {
+    if (!isCleared()) {
+      throw new IllegalStateException();
+    }
+    if (startingRow < 0 || startingRow >= rows || startingCol < 0 || startingCol >= cols) {
       throw new IllegalArgumentException();
     }
     return findAll(startingRow, startingCol,1);
@@ -119,9 +125,18 @@ public class KnightBoard {
       board[row][col] = 0;
       return true;
     }
-    else {
-      return false;
+    return false;
+  }
+
+  public boolean isCleared() {
+    for (int r = 0; r<rows;r++) {
+      for (int c = 0; c<cols;c++) {
+        if (board[r][c] != 0) {
+          return false;
+        }
+      }
     }
+    return true;
   }
 
 }
