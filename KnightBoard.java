@@ -56,9 +56,24 @@ public class KnightBoard {
     if (startingRow < 0 || startingRow >= rows || startingCol < 0 || startingCol >= cols) {
       throw new IllegalArgumentException(); //if the parameters are not valid
     }
-    // board[startingRow][startingCol] = 1; //
-    return solveH(startingRow, startingCol, 1);
+    return solveH(startingRow, startingCol, 1); //calls helper function
   }
+
+  //helper function
+  public boolean solveH(int row ,int col, int level) {
+    if (level > rows * cols) {
+      return true; //if the level is the area of the board, it has finished
+    }
+    for (int x=0; x<moves.length;x++) {
+      if (addKnight(row,col,level)) { //adds Knight
+        if (solveH(row+moves[x][0],col+moves[x][1],level+1)) { //calls the function again at new valid spot
+          return true;
+        }
+        removeKnight(row,col,level); //removes the knight
+      }
+    }
+  return false;
+}
 
   /**
   *@throws IllegalStateException when the board contains non-zero values.
@@ -66,46 +81,33 @@ public class KnightBoard {
    or out of bounds.
   */
   public int countSolutions(int startingRow, int startingCol) {
-    if (!isCleared()) {
+    if (!isCleared()) { //if board contains non-zero values
       throw new IllegalStateException();
     }
     if (startingRow < 0 || startingRow >= rows || startingCol < 0 || startingCol >= cols) {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException(); //if the parameters are not valid
     }
-    return findAll(startingRow, startingCol,1);
+    return findAll(startingRow, startingCol,1); //calls helper function
   }
 
+  //count helper function
   public int findAll(int row, int col, int level) {
-    int ans = 0;
-    if (addKnight(row,col,level)) {
-      if (level != rows * cols) {
+    int ans = 0; //this will store the number of solutions
+    if (addKnight(row,col,level)) { //adds the knight
+      if (level != rows * cols) { //if it hasn't reached the end yet
         for (int x=0;x<moves.length;x++) {
-          ans += findAll(row+moves[x][0],col+moves[x][1],level+1);
+          ans += findAll(row+moves[x][0],col+moves[x][1],level+1); //calls itself again
         }
       }
       else {
-        removeKnight(row,col,level);
-        return 1;
+        removeKnight(row,col,level); //removes the knight
+        return 1; //base case
       }
-      removeKnight(row,col,level);
+      removeKnight(row,col,level); //removes the knight because there's no solution with this
     }
     return ans;
   }
 
-  public boolean solveH(int row ,int col, int level) {
-    if (level > rows * cols) {
-      return true;
-    }
-    for (int x=0; x<moves.length;x++) {
-      if (addKnight(row,col,level)) {
-        if (solveH(row+moves[x][0],col+moves[x][1],level+1)) {
-          return true;
-        }
-        removeKnight(row,col,level);
-      }
-    }
-  return false;
-}
   // level is the # of the knight
 
   public boolean addKnight(int row, int col, int level) {
@@ -131,6 +133,7 @@ public class KnightBoard {
     return false;
   }
 
+  //checks to see if the board contains any non-zero values
   public boolean isCleared() {
     for (int r = 0; r<rows;r++) {
       for (int c = 0; c<cols;c++) {
@@ -142,6 +145,7 @@ public class KnightBoard {
     return true;
   }
 
+  //fills in all the possible moves for each square 
   public void addAllMoves() {
     int start =2;
     for (int r = 0; r<rows;r++) {
