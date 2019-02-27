@@ -2,6 +2,7 @@ public class KnightBoard {
   private int[][] board;
   private int rows;
   private int cols;
+  private int[][] moves = {{-2, -1}, {-2,1}, {-1,-2}, {1,-2}, {2,-1}, {2,1}, {-1,2}, {1,2}};;
 
   /**
   *@throws IllegalArgumentException when either parameter is negative.
@@ -60,44 +61,43 @@ public class KnightBoard {
    or out of bounds.
   */
   public int countSolutions(int startingRow, int startingCol) {
-    return 0;
+    if (startingRow < 0 || startingRow > rows || startingCol < 0 || startingCol > 0) {
+      throw new IllegalArgumentException();
+    }
+    return findAll(startingRow, startingCol,1);
+  }
+
+  public int findAll(int row, int col, int level) {
+    int ans = 0;
+    if (addKnight(row,col,level)) {
+      if (level != rows * cols) {
+        for (int x=0;x<moves.length;x++) {
+          ans += findAll(row+moves[x][0],col+moves[x][1],level+1);
+        }
+      }
+      else {
+        removeKnight(row,col,level);
+        return 1;
+      }
+      removeKnight(row,col,level);
+    }
+    return ans;
   }
 
   public boolean solveH(int row ,int col, int level) {
     if (level > rows * cols) {
       return true;
     }
-    else {
+    for (int x=0; x<moves.length;x++) {
       if (addKnight(row,col,level)) {
-        if (solveH(row+2,col+1,level+1)) {
+        if (solveH(row+moves[x][0],col+moves[x][1],level+1)) {
           return true;
         }
-        if (solveH(row+2,col-1,level+1)) {
-          return true;
-        }
-        if (solveH(row-2,col+1,level+1)) {
-          return true;
-        }
-        if (solveH(row-2,col-1,level+1)) {
-          return true;
-        }
-        if (solveH(row+1,col+2,level+1)) {
-          return true;
-        }
-        if (solveH(row-1,col+2,level+1)) {
-          return true;
-        }
-        if (solveH(row+1,col-2,level+1)) {
-          return true;
-        }
-        if (solveH(row-1,col-2,level+1)) {
-          return true;
-        }
-      System.out.println(removeKnight(row,col,level));
+        removeKnight(row,col,level);
+      }
     }
-  }
-    return false;
-  }
+  return false;
+}
   // level is the # of the knight
 
   public boolean addKnight(int row, int col, int level) {
@@ -108,14 +108,11 @@ public class KnightBoard {
       board[row][col] = level; //if the position is available, the knight will be added
       return true;
     }
-    else {
-      return false; //if not, it will not be added
-    }
+    return false; //if not, it will not be added
   }
 
   public boolean removeKnight(int row, int col, int level) {
-    if (rows >= rows || row < 0 || col >= cols || col < 0) {
-      System.out.println("wasn't zero");
+    if (row >= rows || row < 0 || col >= cols || col < 0) {
       return false; //can't remove if the position isn't valid
     }
     if (board[row][col] != 0) {
@@ -123,7 +120,6 @@ public class KnightBoard {
       return true;
     }
     else {
-      System.out.println("wasn't zero");
       return false;
     }
   }
