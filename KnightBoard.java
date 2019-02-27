@@ -1,26 +1,10 @@
 public class KnightBoard {
 
-  private class Square {
-
-    private int row = 0;
-    private int col = 0;
-    private int level = 0;
-
-    public Square(int r,int c) {
-      row = r;
-      col = c;
-    }
-
-    public void setLevel(int l) {
-      level = l;
-    }
-
-  }
   private int[][] board;
   private int rows;
   private int cols;
   private int[][] moves = {{-2, -1}, {-2,1}, {-1,-2}, {1,-2}, {2,-1}, {2,1}, {-1,2}, {1,2}};;
-  private Square[][] squares;
+  private int[][] allMoves;
 
   /**
   *@throws IllegalArgumentException when either parameter is negative.
@@ -31,10 +15,10 @@ public class KnightBoard {
       throw new IllegalArgumentException();
     }
     board = new int[startingRows][startingCols];
+    allMoves = new int[startingRows][startingCols];
     rows = startingRows;
     cols = startingCols;
     //creates board with the correct size
-    squares = new square[rows][cols];
   }
 
 
@@ -131,6 +115,7 @@ public class KnightBoard {
     }
     if (board[row][col] == 0) {
       board[row][col] = level; //if the position is available, the knight will be added
+      // allMoves[row][col]
       return true;
     }
     return false; //if not, it will not be added
@@ -156,6 +141,46 @@ public class KnightBoard {
       }
     }
     return true;
+  }
+
+  public void addAllMoves() {
+    int start =2;
+    for (int r = 0; r<rows;r++) {
+      for (int c = 0; c<cols;c++) {
+        if (c < cols/2) {
+          allMoves[r][c] = start;
+          start+=1;
+        }
+        else {
+          if (c<cols-1) {
+            allMoves[r][c] = start;
+            start-=1;
+          }
+          else {
+            allMoves[r][c] = start;
+          }
+        }
+      }
+      if (r < rows/2) {
+        System.out.println(start);
+        start+=1;
+      }
+      else {
+        start-=1;
+      }
+    }
+  }
+
+  public String printAllMoves() {
+    addAllMoves();
+    String ans = "";
+    for (int r=0;r<rows;r++) {
+      for (int c=0;c<cols;c++) {
+        ans += (allMoves[r][c]) + " ";
+      }
+      ans += "\n";
+    }
+    return ans;
   }
 
 }
