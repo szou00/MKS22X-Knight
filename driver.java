@@ -31,12 +31,13 @@ public static void runTest(int i){
 
 
   public static void main(String[] args) {
-    // KnightBoard test = new KnightBoard(5,5);
+    KnightBoard test = new KnightBoard(5,5);
     // System.out.println(test);
     // test.solveH(0,0,1);
     // System.out.println(test);
-    for (int i =0; i<5; i++) {
-      runTest(i);
-    }
+    System.out.println(test.printAllMoves());
+    // for (int i =0; i<5; i++) {
+    //   runTest(i);
+    // }
   }
 }
